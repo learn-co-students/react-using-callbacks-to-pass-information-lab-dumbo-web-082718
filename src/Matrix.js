@@ -7,10 +7,21 @@ export default class Matrix extends Component {
 
   constructor() {
     super()
+    this.state = {
+      color: '#fff'
+    }
   }
 
-  genRow = (vals) => (
-    vals.map((val, idx) => <Cell key={idx} color={val} />)
+
+  setColor=(e)=>{
+    console.log("set color");
+    let color = e.target.style.backgroundColor
+    this.setState({color: color})
+  }
+
+
+  genRow = (rowVals) => (
+    rowVals.map((val, idx) => <Cell key={idx} color={val} clickHandler={this.handleClickFromCell}/>)
   )
 
   genMatrix = () => (
@@ -18,10 +29,20 @@ export default class Matrix extends Component {
   )
 
 
+
+handleClickFromCell=(e)=>{
+  console.log("handle click");
+  e.target.style.backgroundColor = this.state.color
+}
+
+
+
+logginFunction=() => console.log("yo")
+
   render() {
     return (
       <div id="app">
-        <ColorSelector />
+        <ColorSelector setColor={this.setColor} />
         <div id="matrix">
           {this.genMatrix()}
         </div>
